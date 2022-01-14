@@ -1,28 +1,26 @@
 const timerEl = document.getElementById("timer");
 const startBtn = document.getElementById("start-btn");
 const mainEl = document.getElementById("page-content");
+const element = document.querySelector(".answers");
+const questionEl = document.querySelector(".question");
 
-let minutesLeft = 0;
+let score = 0;
 
-timerEl.innerHTML = minutesLeft;
+timerEl.innerHTML = score;
 
 function countdown() {
   mainEl.innerHTML = "";
-  minutesLeft = 6000;
-  timerEl.innerHTML = minutesLeft;
+  score = 6000;
+  timerEl.innerHTML = score;
   var timeInterval = setInterval(function () {
-    timerEl.innerHTML = minutesLeft;
-    if (minutesLeft === 0) {
+    timerEl.innerHTML = score;
+    if (score === 0) {
       clearInterval(timeInterval);
-      timerEl.innerHTML = minutesLeft;
+      timerEl.innerHTML = score;
     }
-    --minutesLeft;
+    --score;
   }, 10);
 }
-var element = document.querySelector(".answers");
-console.log(element);
-var questionEl = document.querySelector(".question");
-console.log(questionEl);
 
 function startQuiz() {
   // let questionEl = document.createElement("h1").innerHTML;
