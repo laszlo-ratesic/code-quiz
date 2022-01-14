@@ -85,6 +85,7 @@ footer {
     color: var(--yellow);
     transition: .09s;
     box-shadow: 0px 0px 8px var(--yellow);
+    cursor: pointer;
 }
 
 #start-btn:active {
@@ -92,6 +93,12 @@ footer {
     box-shadow: 0px 0px var(--black);
     transform: translateY(3px);
     top: 0;
+}
+
+.answer:hover, .answer:active {
+    background: var(--grey);
+    color: var(--cream);
+    cursor: pointer;
 }
 
 @media screen and (max-width: 575px) {
