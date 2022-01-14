@@ -97,7 +97,7 @@ footer {
   top: 0;
 }
 
-.answers {
+.answer-wrapper {
   flex-direction: column;
   width: 100%;
   align-items: center;
