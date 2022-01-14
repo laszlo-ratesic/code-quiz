@@ -1,13 +1,22 @@
 const timerEl = document.getElementById("timer");
 const startBtn = document.getElementById("start-btn");
 const mainEl = document.getElementById("page-content");
+
 const answerListEl = document.querySelector(".answer-wrapper");
 const questionEl = document.querySelector(".question");
 const answerEl = document.querySelector(".answer");
+
 const ansElA = document.getElementById("a");
 const ansElB = document.getElementById("b");
 const ansElC = document.getElementById("c");
 const ansElD = document.getElementById("d");
+
+let finalScore = "NUMBER";
+
+const endMsg = document.createElement("p");
+const endMsgText = document.createTextNode(`Your final score is ${finalScore}`)
+
+endMsg.appendChild(endMsgText);
 
 const questionsArr = [
   "Commonly used data types DO NOT include:",
@@ -73,8 +82,13 @@ var answerHandler = function (event) {
     ansElD.textContent = answersArr[counter][3];
     counter++;
     console.log(targetEl.id);
+  } else if (targetEl.matches(".answer") && counter === questionsArr.length) {
+    questionEl.textContent = "All Done!";
+    answerListEl.setAttribute("style", "display:none;");
+    answerListEl.dataset.state = "hidden";
+    mainEl.appendChild(endMsg);
   }
-  if (targetEl.id === mapIter.next().value[1]) {
+  if (targetEl.id === mapIter.next().value[1] && counter < questionsArr.length) {
     console.log("CORRECT");
   } else {
     console.log("INCORRECT");

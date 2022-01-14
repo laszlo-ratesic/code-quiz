@@ -23,7 +23,7 @@ body {
 
 header {
   padding: 30px 35px;
-  border-bottom: 2px solid var(--lightGreen);
+  border-bottom: 1px dashed var(--lightGreen);
   display: flex;
   justify-content: space-between;
   text-align: center;
@@ -47,7 +47,7 @@ footer {
   color: var(--cream);
   font-size: 1.2rem;
   padding: 18px;
-  border-top: 2px solid var(--lightGreen);
+  border-top: 1px dashed var(--lightGreen);
   text-align: center;
   margin-top: 1.8rem;
 }
@@ -85,7 +85,7 @@ footer {
 
 #start-btn:hover {
   color: var(--yellow);
-  transition: 0.09s;
+  transition: 0.07s;
   box-shadow: 0px 0px 8px var(--yellow);
   cursor: pointer;
 }
@@ -106,7 +106,7 @@ footer {
 .answer {
   font-size: 1.8rem;
   margin: 1rem 0;
-  border: 2px solid white;
+  border: 1px solid var(--lightGreen);
   border-radius: 15px;
   display: flex;
   justify-content: flex-start;
@@ -118,9 +118,16 @@ footer {
 
 .answer:hover,
 .answer:active {
-  background: var(--grey);
-  color: var(--cream);
+  background: var(--yellow);
+  color: var(--black);
   cursor: pointer;
+  box-shadow: 0px 5px #37312f;
+}
+
+.answer:active {
+  box-shadow: 0px 0px var(--black);
+  transform: translateY(3px);
+  top: 0;
 }
 
 @media screen and (max-width: 575px) {
