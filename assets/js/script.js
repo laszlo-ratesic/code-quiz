@@ -21,15 +21,23 @@ function countdown() {
 }
 var element = document.querySelector(".answers");
 console.log(element);
+var questionEl = document.querySelector(".question");
+console.log(questionEl);
 
 function startQuiz() {
-  let questionEl = document.createElement("h1").innerHTML;
-  questionEl = `<h1>${"Commonly used data types do not include: "}</h1>`;
-  mainEl.innerHTML = questionEl;
+  // let questionEl = document.createElement("h1").innerHTML;
+  // questionEl = `<h1>${"Commonly used data types do not include: "}</h1>`;
+  // mainEl.innerHTML = questionEl;
+
+  mainEl.appendChild(questionEl);
+
   mainEl.appendChild(element);
   console.log(element);
+  console.log(questionEl);
   if (element.dataset.state === 'hidden') {
-    element.setAttribute("style", "display:flex; flex-direction:column; width:100%; align-items:center;")
+    questionEl.setAttribute("style", "display:flex; margin: 1.8rem 0;")
+    questionEl.dataset.state = 'visible';
+    element.setAttribute("style", "display:flex;")
     element.dataset.state = 'visible';
   }
 

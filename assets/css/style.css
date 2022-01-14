@@ -1,119 +1,141 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 :root {
-    --black: #11151C;
-    --grey: #37312f;
-    --lightGreen: #6da34d;
-    --yellow: #f6ab13;
-    --cream: #edf4ed;
+  --black: #11151c;
+  --grey: #37312f;
+  --lightGreen: #6da34d;
+  --yellow: #f6ab13;
+  --cream: #edf4ed;
 }
 
 body {
-    background: var(--black);
-    color: var(--yellow);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    font-family: monospace;
+  background: var(--black);
+  color: var(--yellow);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-family: monospace;
 }
 
 header {
-    padding: 30px 35px;
-    border-bottom: 2px solid var(--lightGreen);
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-    align-items: center;
+  padding: 30px 35px;
+  border-bottom: 2px solid var(--lightGreen);
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
 }
 
-header a, header p {
-    width: 25%;
-    text-decoration: none;
-    color: var(--cream);
-    font-size: 1.2rem;
+header a,
+header p {
+  width: 25%;
+  text-decoration: none;
+  color: var(--cream);
+  font-size: 1.2rem;
 }
 
 header a:hover {
-    color: var(--yellow);
+  color: var(--yellow);
 }
 
 footer {
-    width: 100%;
-    color: var(--cream);
-    font-size: 1.2rem;
-    padding: 18px;
-    border-top: 2px solid var(--lightGreen);
-    text-align: center;
+  width: 100%;
+  color: var(--cream);
+  font-size: 1.2rem;
+  padding: 18px;
+  border-top: 2px solid var(--lightGreen);
+  text-align: center;
+  margin-top: 1.8rem;
 }
 
 .page-content {
-    text-align: center;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    width: 75%;
-    justify-content: space-around;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 75%;
+  justify-content: space-around;
 }
 
 .page-content h1 {
-    font-size: 2.6rem;
-    margin: 0;
+  font-size: 2.6rem;
+  margin: 0;
 }
 
 .page-content p {
-    font-size: 1.3rem;
-    width: 75%;
-    margin: 0;
+  font-size: 1.3rem;
+  width: 75%;
+  margin: 0;
 }
 
 #start-btn {
-    font-size: 1.3rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    color: var(--cream);
-    background: var(--grey);
+  font-size: 1.3rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  color: var(--cream);
+  background: var(--grey);
 }
 
 #start-btn:hover {
-    color: var(--yellow);
-    transition: .09s;
-    box-shadow: 0px 0px 8px var(--yellow);
-    cursor: pointer;
+  color: var(--yellow);
+  transition: 0.09s;
+  box-shadow: 0px 0px 8px var(--yellow);
+  cursor: pointer;
 }
 
 #start-btn:active {
-    color: var(--cream);
-    box-shadow: 0px 0px var(--black);
-    transform: translateY(3px);
-    top: 0;
+  color: var(--cream);
+  box-shadow: 0px 0px var(--black);
+  transform: translateY(3px);
+  top: 0;
 }
 
-.answer:hover, .answer:active {
-    background: var(--grey);
-    color: var(--cream);
-    cursor: pointer;
+.answers {
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.answer {
+  font-size: 1.8rem;
+  margin: 2% 0;
+  border: 2px solid white;
+  border-radius: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 4.2rem;
+  width: 20rem;
+  padding-left: 1.8rem;
+}
+
+.answer:hover,
+.answer:active {
+  background: var(--grey);
+  color: var(--cream);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 575px) {
-    header a, header p {
-        font-size: .9rem;
-        margin: 0;
-        width: 50%;
-    }
+  header a,
+  header p {
+    font-size: 0.9rem;
+    margin: 0;
+    width: 50%;
+  }
 
-    .page-content h1 {
-        margin-bottom: 0;
-    }
+  .page-content h1 {
+    margin-bottom: 0;
+  }
 
-    .page-content p {
-        width: 100%;
-    }
-
+  .page-content p {
+    width: 100%;
+  }
 }
