@@ -11,12 +11,31 @@ const ansElB = document.getElementById("b");
 const ansElC = document.getElementById("c");
 const ansElD = document.getElementById("d");
 
-let finalScore = "NUMBER";
+let finalScore = "A NUMBER";
 
 const endMsg = document.createElement("p");
-const endMsgText = document.createTextNode(`Your final score is ${finalScore}`)
-
+const endMsgText = document.createTextNode(`Your final score is ${finalScore}`);
 endMsg.appendChild(endMsgText);
+
+const inputLabel = document.createElement("label");
+const labelText = document.createTextNode("Enter your initials: ");
+inputLabel.appendChild(labelText);
+inputLabel.setAttribute("for", "initial-input");
+
+const initialInput = document.createElement("input");
+initialInput.setAttribute("type", "text");
+initialInput.setAttribute("id", "initial-input");
+initialInput.setAttribute("name", "initial-input");
+initialInput.setAttribute("required", "required");
+initialInput.setAttribute("minlength", "1");
+initialInput.setAttribute("maxlength", "3");
+initialInput.setAttribute("size", "5");
+
+const submitBtn = document.createElement("button");
+const submitBtnText = document.createTextNode("Submit");
+submitBtn.appendChild(submitBtnText);
+submitBtn.setAttribute("style", "appearance:none; border:none; padding:.5rem;")
+
 
 const questionsArr = [
   "Commonly used data types DO NOT include:",
@@ -87,6 +106,9 @@ var answerHandler = function (event) {
     answerListEl.setAttribute("style", "display:none;");
     answerListEl.dataset.state = "hidden";
     mainEl.appendChild(endMsg);
+    mainEl.appendChild(inputLabel);
+    mainEl.appendChild(initialInput);
+    mainEl.appendChild(submitBtn);
   }
   if (targetEl.id === mapIter.next().value[1] && counter < questionsArr.length) {
     console.log("CORRECT");
