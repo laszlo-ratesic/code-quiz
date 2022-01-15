@@ -18,7 +18,7 @@ const endMsgText = document.createTextNode(`Your final score is ${finalScore}`);
 endMsg.appendChild(endMsgText);
 
 const inputLabel = document.createElement("label");
-const labelText = document.createTextNode("Enter your initials: ");
+const labelText = document.createTextNode("Please enter your initials: ");
 inputLabel.appendChild(labelText);
 inputLabel.setAttribute("for", "initial-input");
 
@@ -29,13 +29,19 @@ initialInput.setAttribute("name", "initial-input");
 initialInput.setAttribute("required", "required");
 initialInput.setAttribute("minlength", "1");
 initialInput.setAttribute("maxlength", "3");
-initialInput.setAttribute("size", "5");
+initialInput.setAttribute("size", "1");
+initialInput.setAttribute(
+  "style",
+  "caret-color: transparent; text-transform: uppercase; text-align:center; font-size:2rem; color: #f6ab13; outline:none; background-color: #11151c; border: none; border-bottom:2px solid #6da34d;"
+);
 
 const submitBtn = document.createElement("button");
 const submitBtnText = document.createTextNode("Submit");
 submitBtn.appendChild(submitBtnText);
-submitBtn.setAttribute("style", "appearance:none; border:none; padding:.5rem;")
-
+submitBtn.setAttribute(
+  "style",
+  "font-size: 1.3rem; appearance:none; border:none; border-radius:10px; padding:10px 20px; color:#edf4ed; background: #37312f; cursor:pointer;"
+);
 
 const questionsArr = [
   "Commonly used data types DO NOT include:",
@@ -66,7 +72,7 @@ const answersArr = [
   ["A. last()", "B. put()", "C. push()", "D. pop()"],
   ["A. toSource()", "B. valueOf()", "C. toString()", "D. toNumber()"],
   ["A. concat()", "B. match()", "C. search()", "D. replace()"],
-  ["A. push()", "B. join()", "C. pop()", "D. map()"]
+  ["A. push()", "B. join()", "C. pop()", "D. map()"],
 ];
 
 let score = 0;
@@ -109,8 +115,12 @@ var answerHandler = function (event) {
     mainEl.appendChild(inputLabel);
     mainEl.appendChild(initialInput);
     mainEl.appendChild(submitBtn);
+    document.getElementById("initial-input").focus();
   }
-  if (targetEl.id === mapIter.next().value[1] && counter < questionsArr.length) {
+  if (
+    targetEl.id === mapIter.next().value[1] &&
+    counter < questionsArr.length
+  ) {
     console.log("CORRECT");
   } else {
     console.log("INCORRECT");
