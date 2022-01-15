@@ -56,3 +56,11 @@
     }
   }
 }
+
+@media screen and (max-width: 575px) {
+  .answer-wrapper {
+    .answer {
+      width: 20rem;
+    }
+  }
+}

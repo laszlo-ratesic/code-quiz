@@ -1,6 +1,5 @@
 @import "../base/_mixins.scss";
 
-
 .page-content {
   @include flexCenter();
   flex: 1;
@@ -9,14 +8,27 @@
   margin: 0 auto;
   width: 75%;
 
-    h1 {
-      font-size: 3.6rem;
-      margin: 0;
-    }
+  h1 {
+    font-size: 3.6rem;
+    margin: 0;
+  }
 
+  p {
+    font-size: 2rem;
+    width: 75%;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .page-content {
+    h1 {
+      margin-bottom: 0;
+      font-size: 1.8rem;
+    }
     p {
-      font-size: 2rem;
-      width: 75%;
-      margin: 0;
+      width: 100%;
+      font-size: 1.3rem;
     }
   }
+}
