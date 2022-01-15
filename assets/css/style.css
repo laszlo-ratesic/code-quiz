@@ -86,7 +86,8 @@ footer {
 #start-btn:hover {
   color: var(--yellow);
   transition: 0.07s;
-  box-shadow: 0px 0px 8px var(--yellow);
+  box-shadow: 0px 2px var(--lightGreen);
+  transform: translateY(-1px);
   cursor: pointer;
 }
 
@@ -124,7 +125,7 @@ footer {
   background: var(--yellow);
   color: var(--black);
   cursor: pointer;
-  box-shadow: 0px 5px #37312f;
+  box-shadow: 0px 5px var(--grey);
 }
 
 .answer:active {

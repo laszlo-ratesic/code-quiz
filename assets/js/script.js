@@ -15,12 +15,14 @@ let finalScore = "A NUMBER";
 
 const endMsg = document.createElement("p");
 const endMsgText = document.createTextNode(`Your final score is ${finalScore}`);
+endMsg.setAttribute("style", "color:#edf4ed")
 endMsg.appendChild(endMsgText);
 
 const inputLabel = document.createElement("label");
 const labelText = document.createTextNode("Please enter your initials: ");
 inputLabel.appendChild(labelText);
 inputLabel.setAttribute("for", "initial-input");
+inputLabel.setAttribute("style", "font-size:1.4rem;");
 
 const initialInput = document.createElement("input");
 initialInput.setAttribute("type", "text");
@@ -40,7 +42,7 @@ const submitBtnText = document.createTextNode("Submit");
 submitBtn.appendChild(submitBtnText);
 submitBtn.setAttribute(
   "style",
-  "font-size: 1.3rem; appearance:none; border:none; border-radius:10px; padding:10px 20px; color:#edf4ed; background: #37312f; cursor:pointer;"
+  "user-select: false; font-size: 1.3rem; appearance:none; border:none; border-radius:10px; padding:10px 20px; color:#edf4ed; background: #37312f; cursor:pointer;"
 );
 
 const lastBtn = document.getElementById("last-btn");
@@ -135,6 +137,28 @@ const answersEl = document.querySelectorAll('.answer');
 answersEl.forEach(function(item) {
   item.addEventListener("click", answerHandler);
 });
+
+submitBtn.addEventListener("mouseover", function(event) {
+  event.target.style.color = "#f6ab13";
+  event.target.style.transform = "translateY(-1px)";
+  event.target.style.boxShadow = "0px 2px #6da34d";
+});
+
+submitBtn.addEventListener("mouseout", function(event) {
+  event.target.style.color = "#edf4ed";
+  event.target.style.transform = "translateY(1px)";
+  event.target.style.boxShadow = "none";
+});
+
+submitBtn.addEventListener("mousedown", function(event) {
+  event.target.style.transform = "translateY(1px)";
+  event.target.style.boxShadow = "none";
+});
+
+submitBtn.addEventListener("mouseup", function(event) {
+  event.target.style.transform = "translateY(-1px)";
+  event.target.style.boxShadow = "0px 2px #6da34d";
+})
 
 function startQuiz() {
   if (answerListEl.dataset.state === "hidden") {
