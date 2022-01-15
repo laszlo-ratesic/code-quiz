@@ -136,29 +136,46 @@ const answersEl = document.querySelectorAll('.answer');
 
 answersEl.forEach(function(item) {
   item.addEventListener("click", answerHandler);
+  item.addEventListener("touchstart", function(event) {
+    event.target.style.transform = "translateY(2px)";
+    event.target.style.backgroundColor = "#f6ab13";
+    event.target.style.color = "#11151c";
+  });
+  item.addEventListener("touchend", function(event) {
+    event.target.style.transform = "translateY(-2px)";
+    event.target.style.backgroundColor = "#11151c";
+    event.target.style.color = "#f6ab13";
+    event.target.style.boxShadow = "none";
+  });
 });
 
 submitBtn.addEventListener("mouseover", function(event) {
   event.target.style.color = "#f6ab13";
-  event.target.style.transform = "translateY(-1px)";
+  event.target.style.transform = "translateY(-2px)";
   event.target.style.boxShadow = "0px 2px #6da34d";
 });
 
 submitBtn.addEventListener("mouseout", function(event) {
   event.target.style.color = "#edf4ed";
-  event.target.style.transform = "translateY(1px)";
+  event.target.style.transform = "translateY(2px)";
   event.target.style.boxShadow = "none";
 });
 
 submitBtn.addEventListener("mousedown", function(event) {
-  event.target.style.transform = "translateY(1px)";
+  event.target.style.transform = "translateY(2px)";
   event.target.style.boxShadow = "none";
 });
 
 submitBtn.addEventListener("mouseup", function(event) {
-  event.target.style.transform = "translateY(-1px)";
+  event.target.style.transform = "translateY(-2px)";
   event.target.style.boxShadow = "0px 2px #6da34d";
-})
+});
+
+submitBtn.addEventListener("click", submitScore);
+
+function submitScore() {
+
+}
 
 function startQuiz() {
   if (answerListEl.dataset.state === "hidden") {

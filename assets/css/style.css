@@ -120,8 +120,7 @@ footer {
   user-select: none;
 }
 
-.answer:hover,
-.answer:active {
+.answer:hover {
   background: var(--yellow);
   color: var(--black);
   cursor: pointer;
