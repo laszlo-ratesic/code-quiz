@@ -22,7 +22,7 @@ body {
 }
 
 header {
-  padding: 30px 35px;
+  padding: 20px 35px;
   border-bottom: 2px dashed var(--lightGreen);
   display: flex;
   justify-content: space-between;
@@ -64,12 +64,12 @@ footer {
 }
 
 .page-content h1 {
-  font-size: 2.6rem;
+  font-size: 3.6rem;
   margin: 0;
 }
 
 .page-content p {
-  font-size: 1.3rem;
+  font-size: 2rem;
   width: 75%;
   margin: 0;
 }
@@ -99,21 +99,24 @@ footer {
 
 .answer-wrapper {
   flex-direction: column;
-  width: 100%;
+  justify-content: space-between;
+  width: auto;
+  height: 25rem;
   align-items: center;
 }
 
 .answer {
   font-size: 1.8rem;
-  margin: 1rem 0;
+  margin: 0;
   border: 1px solid var(--lightGreen);
   border-radius: 15px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   height: 4.2rem;
-  width: 20rem;
+  width: 36rem;
   padding-left: 1.8rem;
+  user-select: none;
 }
 
 .answer:hover,
@@ -131,6 +134,10 @@ footer {
 }
 
 @media screen and (max-width: 575px) {
+  header {
+    padding: 30px 35px;
+  }
+
   header a,
   header p {
     font-size: 0.9rem;
@@ -140,10 +147,15 @@ footer {
 
   .page-content h1 {
     margin-bottom: 0;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .page-content p {
     width: 100%;
+    font-size: 1.3rem;
+  }
+
+  .answer {
+    width: 20rem;
   }
 }

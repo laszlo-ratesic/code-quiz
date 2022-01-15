@@ -43,6 +43,8 @@ submitBtn.setAttribute(
   "font-size: 1.3rem; appearance:none; border:none; border-radius:10px; padding:10px 20px; color:#edf4ed; background: #37312f; cursor:pointer;"
 );
 
+const lastBtn = document.getElementById("last-btn");
+
 const questionsArr = [
   "Commonly used data types DO NOT include:",
   "Which built-in method adds one or more elements to the end of an array and returns the new length of the array?",
@@ -115,7 +117,8 @@ var answerHandler = function (event) {
     mainEl.appendChild(inputLabel);
     mainEl.appendChild(initialInput);
     mainEl.appendChild(submitBtn);
-    document.getElementById("initial-input").focus();
+    initialInput.focus();
+    lastBtn.setAttribute("style", "display:block;")
   }
   if (
     targetEl.id === mapIter.next().value[1] &&
@@ -127,11 +130,15 @@ var answerHandler = function (event) {
   }
 };
 
-answerListEl.addEventListener("click", answerHandler);
+const answersEl = document.querySelectorAll('.answer');
+
+answersEl.forEach(function(item) {
+  item.addEventListener("click", answerHandler);
+});
 
 function startQuiz() {
   if (answerListEl.dataset.state === "hidden") {
-    questionEl.setAttribute("style", "display:flex; margin: 1.8rem 0;");
+    questionEl.setAttribute("style", "display:flex; margin: 1.8rem 0; font-size:1.8rem; line-height:1.4;");
     questionEl.dataset.state = "visible";
     answerListEl.setAttribute("style", "display:flex;");
     answerListEl.dataset.state = "visible";
