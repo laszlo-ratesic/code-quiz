@@ -203,15 +203,22 @@ function viewHighScores(event) {
   mainEl.appendChild(questionEl);
 
   const tbl = document.createElement("table");
-  tbl.style.width = "20rem";
   tbl.style.border = "1px solid white";
+  tbl.style.width = "20rem";
+  tbl.style.fontSize = "1.5em";
 
   for (let i = 0; i < 6; i++) {
     const tr = tbl.insertRow();
-    tr.style.height = "2rem";
+    tr.style.height = "3rem";
     for (let j = 0; j < 2; j++) {
         const td = tr.insertCell();
-        td.appendChild(document.createTextNode(`Cell I${i}/J${j}`));
+        let playerInit = document.createTextNode(`Initials`);
+        let playerScore = document.createTextNode(`Score Number`);
+        if (j === 0) {
+          td.appendChild(playerInit);
+        } else {
+          td.appendChild(playerScore);
+        }
         td.style.border = "1px solid white";
     }
   }
