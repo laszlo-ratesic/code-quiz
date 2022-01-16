@@ -15,7 +15,7 @@ const questionEl = document.querySelector(".question");
 
 // Answer choice elements
 const answerListEl = document.querySelector(".answer-wrapper");
-const answersEl = document.querySelectorAll('.answer');
+const answersEl = document.querySelectorAll(".answer");
 const answerEl = document.querySelector(".answer");
 const ansElA = document.getElementById("a");
 const ansElB = document.getElementById("b");
@@ -27,8 +27,7 @@ let finalScore = "A NUMBER";
 
 // Game Over Message
 const endMsg = document.createElement("p");
-endMsg.innerHTML = `Your final score is ${finalScore}`;
-endMsg.setAttribute("style", "color:#edf4ed")
+endMsg.setAttribute("style", "color:#edf4ed");
 
 // "Enter your Initials" Input Label
 const inputLabel = document.createElement("label");
@@ -102,16 +101,32 @@ function countdown() {
   timerEl.innerHTML = score;
   var timeInterval = setInterval(function () {
     timerEl.innerHTML = score;
-    if (score === 0) {
+    if (score === 0 || i === questionsArr.length + 1) {
       clearInterval(timeInterval);
       timerEl.innerHTML = score;
+      finalScore = score;
+      endMsg.innerHTML = `Your final score is ${finalScore}`;
+      endQuiz();
     }
     --score;
   }, 10);
 }
 
+// Displays endgame message
+function endQuiz() {
+  questionEl.textContent = "All Done!";
+  answerListEl.setAttribute("style", "display:none;");
+  answerListEl.dataset.state = "hidden";
+  mainEl.appendChild(endMsg);
+  mainEl.appendChild(inputLabel);
+  mainEl.appendChild(initialInput);
+  mainEl.appendChild(submitBtn);
+  initialInput.focus();
+}
+
 // Loops through Questions and Answers
 var answerHandler = function (event) {
+  console.log(i);
   var targetEl = event.target;
   if (targetEl.matches(".answer") && i < questionsArr.length) {
     questionEl.textContent = questionsArr[i];
@@ -122,35 +137,27 @@ var answerHandler = function (event) {
     i++;
     console.log(targetEl.id);
   } else if (targetEl.matches(".answer") && i === questionsArr.length) {
-    questionEl.textContent = "All Done!";
-    answerListEl.setAttribute("style", "display:none;");
-    answerListEl.dataset.state = "hidden";
-    mainEl.appendChild(endMsg);
-    mainEl.appendChild(inputLabel);
-    mainEl.appendChild(initialInput);
-    mainEl.appendChild(submitBtn);
-    initialInput.focus();
-    lastBtn.setAttribute("style", "display:block;")
+    endQuiz();
+    i++;
   }
-  if (
-    targetEl.id === mapIter.next().value[1] &&
-    i < questionsArr.length
-  ) {
+  if (targetEl.id === mapIter.next().value[1] && i < questionsArr.length) {
     console.log("CORRECT");
+    score += 1000;
   } else {
     console.log("INCORRECT");
+    score -= 1000;
   }
 };
 
 // Answer Choice event listeners
-answersEl.forEach(function(item) {
+answersEl.forEach(function (item) {
   item.addEventListener("click", answerHandler);
-  item.addEventListener("touchstart", function(event) {
+  item.addEventListener("touchstart", function (event) {
     event.target.style.transform = "translateY(2px)";
     event.target.style.backgroundColor = "#f6ab13";
     event.target.style.color = "#11151c";
   });
-  item.addEventListener("touchend", function(event) {
+  item.addEventListener("touchend", function (event) {
     event.target.style.transform = "translateY(-2px)";
     event.target.style.backgroundColor = "#11151c";
     event.target.style.color = "#f6ab13";
@@ -159,23 +166,30 @@ answersEl.forEach(function(item) {
 });
 
 // Submit Button event listeners
-submitBtn.addEventListener("mouseover", function(event) {
+submitBtn.addEventListener("mouseover", function (event) {
   event.target.style.color = "#f6ab13";
   event.target.style.transform = "translateY(-2px)";
   event.target.style.boxShadow = "0px 2px #6da34d";
 });
-submitBtn.addEventListener("mouseout", function(event) {
+submitBtn.addEventListener("mouseout", function (event) {
   event.target.style.color = "#edf4ed";
   event.target.style.transform = "translateY(2px)";
   event.target.style.boxShadow = "none";
 });
-submitBtn.addEventListener("mousedown", function(event) {
+submitBtn.addEventListener("mousedown", function (event) {
   event.target.style.transform = "translateY(2px)";
   event.target.style.boxShadow = "none";
 });
-submitBtn.addEventListener("mouseup", function(event) {
+submitBtn.addEventListener("mouseup", function (event) {
   event.target.style.transform = "translateY(-2px)";
   event.target.style.boxShadow = "0px 2px #6da34d";
+});
+submitBtn.addEventListener("touchstart", function (event) {
+  event.target.style.transform = "translateY(2px)";
+  event.target.style.boxShadow = "none";
+});
+submitBtn.addEventListener("touchend", function (event) {
+  event.target.style.transform = "translateY(-2px)";
 });
 submitBtn.addEventListener("click", submitScore);
 
@@ -183,7 +197,7 @@ submitBtn.addEventListener("click", submitScore);
 // *******START HERE*********
 // *******START HERE*********
 function submitScore() {
-
+  mainEl.innerHTML = "";
 }
 // *******START HERE*********
 // *******START HERE*********
@@ -192,7 +206,10 @@ function submitScore() {
 // Clears page and displays Question 0
 function startQuiz() {
   if (answerListEl.dataset.state === "hidden") {
-    questionEl.setAttribute("style", "display:flex; margin: 1.8rem 0; font-size:1.8rem; line-height:1.4;");
+    questionEl.setAttribute(
+      "style",
+      "display:flex; margin: 1.8rem 0; font-size:1.8rem; line-height:1.4;"
+    );
     questionEl.dataset.state = "visible";
     answerListEl.setAttribute("style", "display:flex;");
     answerListEl.dataset.state = "visible";
