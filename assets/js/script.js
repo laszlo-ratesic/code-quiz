@@ -50,9 +50,10 @@ initialInput.setAttribute(
 );
 
 // Submit High Score button
-const submitBtn = document.createElement("button");
-const submitBtnText = document.createTextNode("Submit");
-submitBtn.appendChild(submitBtnText);
+const submitBtn = document.createElement("input");
+submitBtn.id = "submit-btn";
+submitBtn.type = "submit";
+submitBtn.value = "Submit";
 submitBtn.setAttribute(
   "style",
   "user-select: false; font-size: 1.3rem; appearance:none; border:none; border-radius:10px; padding:10px 20px; color:#edf4ed; background: #37312f; cursor:pointer;"
@@ -190,10 +191,12 @@ navEl.addEventListener("click", viewHighScores);
 
 function viewHighScores(event) {
   if (navEl.innerText === "View High Scores") {
+    navEl.dataset.state = "home";
     navEl.removeEventListener("click", viewHighScores);
     navEl.innerText = "Home";
     navEl.href = "/";
   } else {
+    navEl.dataset.state = "high-score"
     navEl.innerText = "View High Scores";
   }
   console.log(navEl);
@@ -211,23 +214,25 @@ function viewHighScores(event) {
     const tr = tbl.insertRow();
     tr.style.height = "3rem";
     for (let j = 0; j < 2; j++) {
-        const td = tr.insertCell();
-        let playerInit = document.createTextNode(`Initials`);
-        let playerScore = document.createTextNode(`Score Number`);
-        if (j === 0) {
-          td.appendChild(playerInit);
-        } else {
-          td.appendChild(playerScore);
-        }
-        td.style.border = "1px solid white";
+      const td = tr.insertCell();
+      let playerInit = document.createTextNode(`Initials`);
+      let playerScore = document.createTextNode(`Score Number`);
+      if (j === 0) {
+        td.appendChild(playerInit);
+      } else {
+        td.appendChild(playerScore);
+      }
+      td.style.border = "1px solid white";
     }
   }
   mainEl.appendChild(tbl);
-  event.preventDefault();
+  if (event.target){
+    event.preventDefault();
+  }
 }
 
 function submitScore() {
-  viewHighScores();
+  localStorage.setItem("PlayerName", score);
 }
 
 // Submit Button event listeners
@@ -257,6 +262,7 @@ submitBtn.addEventListener("touchend", function (event) {
   event.target.style.transform = "translateY(-2px)";
 });
 submitBtn.addEventListener("click", submitScore);
+submitBtn.addEventListener("click", viewHighScores);
 
 
 // Clears page and displays Question 0
