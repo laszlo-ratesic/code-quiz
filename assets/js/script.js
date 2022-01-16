@@ -199,7 +199,6 @@ function viewHighScores(event) {
     navEl.dataset.state = "high-score"
     navEl.innerText = "View High Scores";
   }
-  console.log(navEl);
   mainEl.textContent = "";
   questionEl.style = "display:flex;";
   questionEl.textContent = "High Scores";
@@ -232,7 +231,7 @@ function viewHighScores(event) {
 }
 
 function submitScore() {
-  localStorage.setItem("PlayerName", score);
+  localStorage.setItem(JSON.stringify(initialInput.value.toUpperCase()), score);
 }
 
 // Submit Button event listeners
