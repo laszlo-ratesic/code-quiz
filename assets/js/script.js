@@ -65,6 +65,11 @@ const questionsArr = [
   "Which of the following function of Boolean object returns the primitive value of the Boolean object?",
   "Which of the following function of String object is used to match a regular expression against a string?",
   "Which of the following function of Array object creates a new array with the results of calling a provided function on every element in this array?",
+  "Inside the HTML document, where do you place your Javascript code?",
+  "What operator is used to assign a value to a declared variable?",
+  "Which of these is one of the six primitive data types in JavaScript?",
+  "What is an object method?",
+  "What are the two types of scope JavaScript uses?"
 ];
 
 // Shorthand references to individual questions
@@ -73,6 +78,11 @@ const q1 = questionsArr[1];
 const q2 = questionsArr[2];
 const q3 = questionsArr[3];
 const q4 = questionsArr[4];
+const q5 = questionsArr[5];
+const q6 = questionsArr[6];
+const q7 = questionsArr[7];
+const q8 = questionsArr[8];
+const q9 = questionsArr[9];
 
 // Map each question to its correct answer
 const quizMap = new Map();
@@ -81,6 +91,11 @@ quizMap.set(q1, "c");
 quizMap.set(q2, "b");
 quizMap.set(q3, "b");
 quizMap.set(q4, "d");
+quizMap.set(q5, "b");
+quizMap.set(q6, "d");
+quizMap.set(q7, "a");
+quizMap.set(q8, "a");
+quizMap.set(q9, "b");
 
 // An iterator to loop through questions
 const mapIter = quizMap[Symbol.iterator]();
@@ -92,6 +107,11 @@ const answersArr = [
   ["A. toSource()", "B. valueOf()", "C. toString()", "D. toNumber()"],
   ["A. concat()", "B. match()", "C. search()", "D. replace()"],
   ["A. push()", "B. join()", "C. pop()", "D. map()"],
+  ["A. <head>", "B. <script>", "C. <link>", "D. <footer>"],
+  ["A. Colon (:)", "B. Double-equal (==)", "C. Question mark (?)", "D. Equal sign (=)"],
+  ["A. bigInt", "B. truthy", "C. falsy", "D. float"],
+  ["A. A function on an object", "B. An array", "C. An object's key number", "D. A function argument"],
+  ["A. Surrounding and inner", "B. Global and local", "C. Abroad and local", "D. Outside and inside"]
 ];
 
 // High Score Countdown function
@@ -101,7 +121,7 @@ function countdown() {
   timerEl.innerHTML = score;
   var timeInterval = setInterval(function () {
     timerEl.innerHTML = score;
-    if (score === 0 || i === questionsArr.length + 1) {
+    if (score <= 0 || i === questionsArr.length + 1) {
       clearInterval(timeInterval);
       timerEl.innerHTML = score;
       finalScore = score;
@@ -140,7 +160,7 @@ var answerHandler = function (event) {
     endQuiz();
     i++;
   }
-  if (targetEl.id === mapIter.next().value[1] && i < questionsArr.length) {
+  if (targetEl.id === mapIter.next().value[1] && i < questionsArr.length + 2) {
     console.log("CORRECT");
     score += 1000;
   } else {
