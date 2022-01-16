@@ -185,6 +185,44 @@ answersEl.forEach(function (item) {
   });
 });
 
+const navEl = document.getElementById("nav-el");
+navEl.addEventListener("click", viewHighScores);
+
+function viewHighScores(event) {
+  if (navEl.innerText === "View High Scores") {
+    navEl.removeEventListener("click", viewHighScores);
+    navEl.innerText = "Home";
+    navEl.href = "/";
+  } else {
+    navEl.innerText = "View High Scores";
+  }
+  console.log(navEl);
+  mainEl.textContent = "";
+  questionEl.style = "display:flex;";
+  questionEl.textContent = "High Scores";
+  mainEl.appendChild(questionEl);
+
+  const tbl = document.createElement("table");
+  tbl.style.width = "20rem";
+  tbl.style.border = "1px solid white";
+
+  for (let i = 0; i < 6; i++) {
+    const tr = tbl.insertRow();
+    tr.style.height = "2rem";
+    for (let j = 0; j < 2; j++) {
+        const td = tr.insertCell();
+        td.appendChild(document.createTextNode(`Cell I${i}/J${j}`));
+        td.style.border = "1px solid white";
+    }
+  }
+  mainEl.appendChild(tbl);
+  event.preventDefault();
+}
+
+function submitScore() {
+  viewHighScores();
+}
+
 // Submit Button event listeners
 submitBtn.addEventListener("mouseover", function (event) {
   event.target.style.color = "#f6ab13";
@@ -213,15 +251,6 @@ submitBtn.addEventListener("touchend", function (event) {
 });
 submitBtn.addEventListener("click", submitScore);
 
-// *******START HERE*********
-// *******START HERE*********
-// *******START HERE*********
-function submitScore() {
-  mainEl.innerHTML = "";
-}
-// *******START HERE*********
-// *******START HERE*********
-// *******START HERE*********
 
 // Clears page and displays Question 0
 function startQuiz() {
