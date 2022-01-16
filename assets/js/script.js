@@ -70,7 +70,7 @@ const questionsArr = [
   "What operator is used to assign a value to a declared variable?",
   "Which of these is one of the six primitive data types in JavaScript?",
   "What is an object method?",
-  "What are the two types of scope JavaScript uses?"
+  "What are the two types of scope JavaScript uses?",
 ];
 
 // Shorthand references to individual questions
@@ -101,6 +101,26 @@ quizMap.set(q9, "b");
 // An iterator to loop through questions
 const mapIter = quizMap[Symbol.iterator]();
 
+// Array of players
+const playersArr = ["KRC", "KRK", "RRC", "MEC", "LOL", "OMG"];
+
+const p0 = playersArr[0];
+const p1 = playersArr[1];
+const p2 = playersArr[2];
+const p3 = playersArr[3];
+const p4 = playersArr[4];
+const p5 = playersArr[5];
+
+const leaderBoard = new Map();
+leaderBoard.set(p0, "92394");
+leaderBoard.set(p1, "12159");
+leaderBoard.set(p2, "52720");
+leaderBoard.set(p3, "13022");
+leaderBoard.set(p4, "13373");
+leaderBoard.set(p5, "80085");
+
+const leadIter = leaderBoard.values();
+
 // Answer Choices Array
 const answersArr = [
   ["A. Array", "B. String", "C. Boolean", "D. Alert"],
@@ -109,10 +129,25 @@ const answersArr = [
   ["A. concat()", "B. match()", "C. search()", "D. replace()"],
   ["A. push()", "B. join()", "C. pop()", "D. map()"],
   ["A. <head>", "B. <script>", "C. <link>", "D. <footer>"],
-  ["A. Colon (:)", "B. Double-equal (==)", "C. Question mark (?)", "D. Equal sign (=)"],
+  [
+    "A. Colon (:)",
+    "B. Double-equal (==)",
+    "C. Question mark (?)",
+    "D. Equal sign (=)",
+  ],
   ["A. bigInt", "B. truthy", "C. falsy", "D. float"],
-  ["A. A function on an object", "B. An array", "C. An object's key number", "D. A function argument"],
-  ["A. Surrounding and inner", "B. Global and local", "C. Abroad and local", "D. Outside and inside"]
+  [
+    "A. A function on an object",
+    "B. An array",
+    "C. An object's key number",
+    "D. A function argument",
+  ],
+  [
+    "A. Surrounding and inner",
+    "B. Global and local",
+    "C. Abroad and local",
+    "D. Outside and inside",
+  ],
 ];
 
 // High Score Countdown function
@@ -196,7 +231,7 @@ function viewHighScores(event) {
     navEl.innerText = "Home";
     navEl.href = "/";
   } else {
-    navEl.dataset.state = "high-score"
+    navEl.dataset.state = "high-score";
     navEl.innerText = "View High Scores";
   }
   mainEl.textContent = "";
@@ -214,24 +249,26 @@ function viewHighScores(event) {
     tr.style.height = "3rem";
     for (let j = 0; j < 2; j++) {
       const td = tr.insertCell();
-      let playerInit = document.createTextNode(`Initials`);
-      let playerScore = document.createTextNode(`Score Number`);
+      let playerInit = document.createTextNode(playersArr[i]);
       if (j === 0) {
         td.appendChild(playerInit);
       } else {
+        let playerScore = document.createTextNode(leadIter.next().value);
         td.appendChild(playerScore);
       }
       td.style.border = "1px solid white";
     }
   }
   mainEl.appendChild(tbl);
-  if (event.target){
+  if (event.target) {
     event.preventDefault();
   }
 }
 
 function submitScore() {
-  localStorage.setItem(JSON.stringify(initialInput.value.toUpperCase()), score);
+  let newInitials = initialInput.value.toUpperCase();
+  localStorage.setItem("scores", newInitials);
+  console.log(localStorage.getItem("scores"));
 }
 
 // Submit Button event listeners
@@ -262,7 +299,6 @@ submitBtn.addEventListener("touchend", function (event) {
 });
 submitBtn.addEventListener("click", submitScore);
 submitBtn.addEventListener("click", viewHighScores);
-
 
 // Clears page and displays Question 0
 function startQuiz() {
