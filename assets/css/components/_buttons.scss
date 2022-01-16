@@ -60,7 +60,10 @@
 @media screen and (max-width: 575px) {
   .answer-wrapper {
     .answer {
-      width: 20rem;
+      text-align: left;
+      height: 5.5rem;
+      width: 21rem;
+      padding-right: 1rem;
     }
   }
 }
