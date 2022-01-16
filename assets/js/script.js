@@ -229,7 +229,7 @@ function viewHighScores(event) {
     navEl.dataset.state = "home";
     navEl.removeEventListener("click", viewHighScores);
     navEl.innerText = "Home";
-    navEl.href = "/";
+    navEl.href = "/code-quiz/";
   } else {
     navEl.dataset.state = "high-score";
     navEl.innerText = "View High Scores";
