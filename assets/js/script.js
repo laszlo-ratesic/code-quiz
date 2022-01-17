@@ -231,8 +231,8 @@ function viewHighScores(event) {
     navEl.dataset.state = "home";
     navEl.removeEventListener("click", viewHighScores);
     navEl.innerText = "Home";
-    // navEl.href = "https://laszlo-ratesic.github.io/code-quiz/";
-    navEl.href = "/";
+    navEl.href = "https://laszlo-ratesic.github.io/code-quiz/";
+    // navEl.href = "/";
   } else {
     navEl.dataset.state = "high-score";
     navEl.innerText = "View High Scores";
