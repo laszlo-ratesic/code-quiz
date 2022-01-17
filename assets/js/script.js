@@ -35,7 +35,6 @@ formEl.style.display = "flex";
 formEl.style.flexDirection = "column";
 formEl.style.justifyContent = "space-between";
 
-
 const labelDiv = document.createElement("div");
 const inputDiv = document.createElement("div");
 const submitDiv = document.createElement("div");
@@ -175,17 +174,17 @@ function countdown() {
   }, 10);
 }
 
-let ending = false;
+let gamePlayed = false;
 
 // Displays endgame message
 function endQuiz() {
+  gamePlayed = true;
   questionEl.textContent = "All Done!";
   answerListEl.setAttribute("style", "display:none;");
   answerListEl.dataset.state = "hidden";
   mainEl.appendChild(endMsg);
   mainEl.appendChild(formEl);
   initialInput.focus();
-  ending = true;
   initialInput.addEventListener("submit", saveScore);
   initialInput.addEventListener("submit", viewHighScores);
 }
@@ -206,21 +205,22 @@ var answerHandler = function (event) {
     endQuiz();
     i++;
   }
+  // const mapIter = quizMap[Symbol.iterator]();
   if (targetEl.id === mapIter.next().value[1] && i < questionsArr.length + 2) {
-    let response = setTimeout(function() {
+    let response = setTimeout(function () {
       timerEl.style.color = "green";
     });
-    let clear = setTimeout(function() {
+    let clear = setTimeout(function () {
       clearTimeout(response);
       timerEl.style.color = "white";
     }, 1000);
     console.log("CORRECT");
     score += 1000;
   } else {
-    let response = setTimeout(function() {
+    let response = setTimeout(function () {
       timerEl.style.color = "red";
     });
-    let clear = setTimeout(function() {
+    let clear = setTimeout(function () {
       clearTimeout(response);
       timerEl.style.color = "white";
     }, 1000);
@@ -266,7 +266,6 @@ const defaultArr = [
 const highScores =
   JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
 
-
 function viewHighScores(event) {
   navEl.innerText = "Home";
   let score = finalScore;
@@ -284,7 +283,6 @@ function viewHighScores(event) {
   tbl.style.width = "20rem";
   tbl.style.fontSize = "1.5em";
 
-
   for (let i = 0; i < 6; i++) {
     const tr = tbl.insertRow();
     tr.style.height = "3rem";
@@ -298,9 +296,12 @@ function viewHighScores(event) {
     }
   }
   mainEl.appendChild(tbl);
-  if (ending) {
-    startBtn.innerText = "Try again?"
+  if (gamePlayed) {
+    startBtn.innerText = "Try again?";
     mainEl.appendChild(startBtn);
+    startBtn.removeEventListener("click", startQuiz);
+    startBtn.removeEventListener("click", countdown);
+    startBtn.addEventListener("click", goHome);
   }
 }
 
@@ -312,6 +313,7 @@ function saveScore(score, highScores) {
   highScores.splice(highScores.length);
   console.log(highScores);
   localStorage.setItem("high scores", JSON.stringify(highScores));
+  i = 1;
 }
 
 function submitScore() {
@@ -353,6 +355,11 @@ submitBtn.addEventListener("click", viewHighScores);
 
 // Clears page and displays Question 0
 function startQuiz() {
+  // debugger;
+  if (answerListEl.dataset.state === "visible") {
+    answerListEl.dataset.state = "hidden";
+    questionEl.dataset.state = "hidden";
+  }
   if (answerListEl.dataset.state === "hidden") {
     questionEl.setAttribute(
       "style",
