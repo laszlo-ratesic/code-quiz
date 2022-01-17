@@ -226,11 +226,13 @@ const highScores =
   JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
 
 function viewHighScores(event) {
+  let score = finalScore;
   if (navEl.innerText === "View High Scores") {
     navEl.dataset.state = "home";
     navEl.removeEventListener("click", viewHighScores);
     navEl.innerText = "Home";
-    navEl.href = "https://laszlo-ratesic.github.io/code-quiz/";
+    // navEl.href = "https://laszlo-ratesic.github.io/code-quiz/";
+    navEl.href = "/";
   } else {
     navEl.dataset.state = "high-score";
     navEl.innerText = "View High Scores";
@@ -244,7 +246,8 @@ function viewHighScores(event) {
   mainEl.appendChild(questionEl);
 
   const tbl = document.createElement("table");
-  tbl.style.border = "1px solid white";
+  tbl.style.border = "1px solid #edf4ed";
+  tbl.style.borderRadius = "15px";
   tbl.style.width = "20rem";
   tbl.style.fontSize = "1.5em";
 
@@ -256,7 +259,9 @@ function viewHighScores(event) {
       const td = tr.insertCell();
       const playerInit = document.createTextNode(highScores[i][j]);
       td.appendChild(playerInit);
-      td.style.border = "1px solid white";
+      td.style.borderBottom = "3px solid #37312f";
+      td.style.borderRight = "3px solid #37312f";
+      td.style.borderRadius = "15px";
     }
   }
   mainEl.appendChild(tbl);
