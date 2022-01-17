@@ -26,11 +26,12 @@ const defaultArr = [
 ];
 
 // Retrieve scores from localStorage or use placeholder values
+// ALWAYS [[returns an], [array made], [of arrays]]
 const highScores =
   JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
 
 // Displays High Score table
-function viewHighScores(event) {
+function viewHighScores() {
   navEl.style.display = "inline";
   navEl.innerText = "Home";
   mainEl.textContent = "";
