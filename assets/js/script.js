@@ -294,9 +294,6 @@ function viewHighScores(event) {
     }
   }
   mainEl.appendChild(tbl);
-  if (event.target) {
-    event.preventDefault();
-  }
 }
 
 function saveScore(score, highScores) {
