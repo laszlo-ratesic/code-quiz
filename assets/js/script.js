@@ -212,7 +212,14 @@ answersEl.forEach(function (item) {
 });
 
 const navEl = document.getElementById("nav-el");
+navEl.addEventListener("click", goHome);
 navEl.addEventListener("click", viewHighScores);
+
+function goHome() {
+  if (navEl.innerText === "Home") {
+    window.location.reload();
+  }
+}
 
 const defaultArr = [
   ["KRK", 690],
@@ -226,17 +233,8 @@ const highScores =
   JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
 
 function viewHighScores(event) {
+  navEl.innerText = "Home";
   let score = finalScore;
-  if (navEl.innerText === "View High Scores") {
-    navEl.dataset.state = "home";
-    navEl.removeEventListener("click", viewHighScores);
-    navEl.innerText = "Home";
-    navEl.href = "https://laszlo-ratesic.github.io/code-quiz/";
-    // navEl.href = "/";
-  } else {
-    navEl.dataset.state = "high-score";
-    navEl.innerText = "View High Scores";
-  }
   mainEl.textContent = "";
   questionEl.style = "display:flex;";
   questionEl.textContent = "High Scores";
