@@ -31,6 +31,7 @@ const highScores =
 
 // Displays High Score table
 function viewHighScores(event) {
+  navEl.style.display = "inline";
   navEl.innerText = "Home";
   mainEl.textContent = "";
   questionEl.style = "display:flex;";
@@ -96,6 +97,7 @@ function startQuiz() {
     answerListEl.setAttribute("style", "display:flex;");
     answerListEl.dataset.state = "visible";
   }
+  navEl.style.display = "none";
   mainEl.appendChild(questionEl);
   mainEl.appendChild(answerListEl);
 }
@@ -119,6 +121,9 @@ function countdown() {
     timerEl.innerHTML = score;
     if (score <= 0 || i === questionsArr.length + 1) {
       clearInterval(timeInterval);
+      if (score < 0) {
+        score = 0;
+      }
       timerEl.innerHTML = score;
       endMsg.innerHTML = `Your final score is ${score}`;
       endQuiz();
@@ -329,12 +334,13 @@ function submitScore() {
     window.alert(
       "🧙‍♂️ Whoa, whoa, whoa! Not so fast! Please enter your initials!"
     );
-    debugger;
     endQuiz();
   } else {
     const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
     if (score > lowestScore) {
       saveScore(score, highScores);
+    } else {
+      viewHighScores();
     }
   }
 }
