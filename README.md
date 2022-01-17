@@ -1,4 +1,4 @@
-# 🧙‍♂️ Quizard's Coding Challenge
+# Quizard's Coding Challenge 🧙‍♂️
 
 Will you enter the Quizard's coding gauntlet?
 
@@ -65,7 +65,7 @@ By then using a querySelectorAll on the .answer class of all the answer choice e
 
 The answer was simply another array of arrays. I would create a default placeholder array to store some data for rendering on first page visit without logging anything into localstorage. Upon playing the quiz, if the user scores higher than the lowest score, they are able to save their score, and see it rendered on the screen along with a NEW HIGH SCORE! message displayed on the screen.<sup>[6](#footnote6)</sup>
 
-🦾 The saveScore function does the legwork here and takes in two arguments (score, highScores). It essentially pushes an array made up of the user's initials(forced toUpperCase once again), and their score counter at the end of the quiz, into the placeholder array. The array is then sorted by score, from highest to lowest, and spliced at 5 items. The finished array is then stringified and set into localStorage.
+👩‍🍳 The saveScore function does the legwork here and takes in two arguments (score, highScores). It essentially pushes an array made up of the user's initials(forced toUpperCase once again), and their score counter at the end of the quiz, into the placeholder array. The array is then sorted by score, from highest to lowest, and spliced at 5 items. The finished array is then stringified and set into localStorage.
 
 The viewHighScores function simply retrieves either the parsed version of the stored array, or upon first visit, the default array and takes advantage of a nested for loop in conjunction with the html table element to create a 2 column, 5 row table of stored high scores. The more a user plays, the more their initials/scores will populate the leaderboard.
 
