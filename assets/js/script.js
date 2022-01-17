@@ -214,6 +214,17 @@ answersEl.forEach(function (item) {
 const navEl = document.getElementById("nav-el");
 navEl.addEventListener("click", viewHighScores);
 
+const defaultArr = [
+  ["KRK", 690],
+  ["KRC", 420],
+  ["RRC", 336],
+  ["MEC", 180],
+  ["FTW", 117],
+  ["LOL", 101],
+];
+const highScores =
+  JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
+
 function viewHighScores(event) {
   if (navEl.innerText === "View High Scores") {
     navEl.dataset.state = "home";
@@ -227,6 +238,9 @@ function viewHighScores(event) {
   mainEl.textContent = "";
   questionEl.style = "display:flex;";
   questionEl.textContent = "High Scores";
+  if (score > highScores[5][1]) {
+    questionEl.textContent = "NEW HIGH SCORE!";
+  }
   mainEl.appendChild(questionEl);
 
   const tbl = document.createElement("table");
@@ -234,18 +248,13 @@ function viewHighScores(event) {
   tbl.style.width = "20rem";
   tbl.style.fontSize = "1.5em";
 
-  const highScores = JSON.parse(localStorage.getItem("high scores")) ?? [];
-  const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
-  if (score > lowestScore) {
-    questionEl.textContent = "New High Score!";
-  }
-  
+
   for (let i = 0; i < 6; i++) {
     const tr = tbl.insertRow();
     tr.style.height = "3rem";
     for (let j = 0; j < 2; j++) {
       const td = tr.insertCell();
-      let playerInit = document.createTextNode(highScores[i][j]);
+      const playerInit = document.createTextNode(highScores[i][j]);
       td.appendChild(playerInit);
       td.style.border = "1px solid white";
     }
@@ -255,10 +264,6 @@ function viewHighScores(event) {
     event.preventDefault();
   }
 }
-
-const data = [["BBB", 7223], ["DDD", 8914], ["CCC", 7255], ["AAA", 7255], ["HHH", 5243], ["III", 5243]];
-const sortedData = data.sort((a, b) => b[1] - a[1]);
-console.log(sortedData);
 
 function saveScore(score, highScores) {
   let newInitials = initialInput.value.toUpperCase();
@@ -271,7 +276,6 @@ function saveScore(score, highScores) {
 }
 
 function submitScore() {
-  const highScores = JSON.parse(localStorage.getItem("high scores")) ?? [];
   const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
   score;
   if (score > lowestScore) {
