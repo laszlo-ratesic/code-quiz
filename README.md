@@ -10,8 +10,6 @@ Prove you have what it takes to climb to the top of the leaderboard among the fe
 
 ## 📖 Developer Journey
 
-<hr />
-
 📓 This repo contains the MVP for a themed coding quiz challenge requested by an anonymous student at an anonymous coding boot camp and was created completely from scratch. Our client here was interested in taking a timed quiz on JavaScript fundamentals that stores high scores. They specifically wanted to be able to guage their progress compared to their peers, a not unreasonable goal when navigating with a group through one of the world's most popular, yet difficult to learn, coding languages: JavaScript.
 
 I was thrilled to be contacted for this project, and right away I got started creating the boilerplate (Thank you, emmet shortcut html:5!) I started with a basic structure of header, main, and footer, not unlike our recent module practice.<sup>[1](#footnote1)</sup>
@@ -36,8 +34,6 @@ The viewHighScores function simply retrieves either the parsed version of the st
 
 🦟 The application also fixes several bugs regarding switching between viewing high scores and returning to the home page in a non-browser-intensive manner, as well as removing navigation functionality during gameplay. I finished by fixing small final bugs, re-writing the instructions, and reorganizing the codebase based on components of the page such as: leaderboard, start-quiz functionality, timer, questions, answers, and endgame elements.
 
-<hr />
-
 <sub><a name="footnote1">1</a>: Initially I tried to base it entirely off the taskinator project to save time on styling, but that idea was quickly thwarted by its own untenable nature. This project deserved the ground-up treatment. Doing so, was not only incredibly satisfying, but actually much easier, as I took ownership of my own desicion-making.</sub>
 
 <sub><a name="footnote2">2</a>: I **absolutely** did not want styling to overshadow the functionality we were going to have to create during this project, and I'm glad I made it a priority because I really loved the color palette I ended up with. The richness of the not-abyssal black background coupled with the honey-yellow monospace hacker text has truly kept my heart beating strong through some of the harder challenges of this project.</sub>
@@ -51,8 +47,6 @@ The viewHighScores function simply retrieves either the parsed version of the st
 <sub><a name="footnote6">6</a>: The functionality for this is quite elegant and I surely cannot take credit for how I've manhandled it in my own neanderthal way to work for this project.</sub>
 
 🔥 TL;DR It's a really badass coding quiz. 🚒
-
-<hr />
 
 ## 📚 Table of Contents
 - [🧙‍♂️ Quizard's Coding Challenge](#️-quizards-coding-challenge)
