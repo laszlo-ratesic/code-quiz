@@ -204,9 +204,23 @@ var answerHandler = function (event) {
     i++;
   }
   if (targetEl.id === mapIter.next().value[1] && i < questionsArr.length + 2) {
+    let response = setTimeout(function() {
+      timerEl.style.color = "green";
+    });
+    let clear = setTimeout(function() {
+      clearTimeout(response);
+      timerEl.style.color = "white";
+    }, 1000);
     console.log("CORRECT");
     score += 1000;
   } else {
+    let response = setTimeout(function() {
+      timerEl.style.color = "red";
+    });
+    let clear = setTimeout(function() {
+      clearTimeout(response);
+      timerEl.style.color = "white";
+    }, 1000);
     console.log("INCORRECT");
     score -= 1000;
   }
