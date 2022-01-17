@@ -7,9 +7,9 @@
     <title>Quizard's Coding Challenge 🧙‍♂️</title>
     <link rel="stylesheet" href="assets/css/combined.css" />
   </head>
-  <body>
+  <body style="user-select: none;">
     <header>
-      <a id="nav-el" style="cursor: pointer;" user-select="false" draggable="false" data-state="high-score">View High Scores</a>
+      <a id="nav-el" style="cursor: pointer; user-select: none;" draggable="false" data-state="high-score">View High Scores</a>
       <p>
         Score:
         <span id="timer">0</span>
@@ -49,9 +49,11 @@
       </div>
     </main>
     <footer>
-      &copy; 2022 Made with
-      <img src="assets/images/heart-icon.svg" alt="heart"/>
-      by Keenan Chiasson
+      <span style="cursor: grabbing;">
+        &copy; 2022 Made with
+        <img src="assets/images/heart-icon.svg" alt="heart"/>
+        by Keenan Chiasson
+      </span>
     </footer>
     <script src="./assets/js/script.js"></script>
   </body>

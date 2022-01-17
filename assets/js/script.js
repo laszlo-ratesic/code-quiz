@@ -29,11 +29,24 @@ let finalScore = "A NUMBER";
 const endMsg = document.createElement("p");
 endMsg.setAttribute("style", "color:#edf4ed");
 
+const formEl = document.createElement("form");
+formEl.style.height = "8rem";
+formEl.style.display = "flex";
+formEl.style.flexDirection = "column";
+formEl.style.justifyContent = "space-between";
+
+
+const labelDiv = document.createElement("div");
+const inputDiv = document.createElement("div");
+const submitDiv = document.createElement("div");
+
 // "Enter your Initials" Input Label
 const inputLabel = document.createElement("label");
 inputLabel.textContent = "Please enter your initials: ";
 inputLabel.setAttribute("for", "initial-input");
 inputLabel.setAttribute("style", "font-size:1.4rem;");
+labelDiv.appendChild(inputLabel);
+formEl.appendChild(labelDiv);
 
 // Input form for entering initials
 const initialInput = document.createElement("input");
@@ -48,6 +61,8 @@ initialInput.setAttribute(
   "style",
   "caret-color: transparent; text-transform: uppercase; text-align:center; font-size:2rem; color: #f6ab13; outline:none; background-color: #11151c; border: none; border-bottom:2px solid #6da34d;"
 );
+inputDiv.appendChild(initialInput);
+formEl.appendChild(inputDiv);
 
 // Submit High Score button
 const submitBtn = document.createElement("input");
@@ -58,6 +73,8 @@ submitBtn.setAttribute(
   "style",
   "user-select: false; font-size: 1.3rem; appearance:none; border:none; border-radius:10px; padding:10px 20px; color:#edf4ed; background: #37312f; cursor:pointer;"
 );
+submitDiv.appendChild(submitBtn);
+formEl.appendChild(submitDiv);
 
 // Questions Array
 const questionsArr = [
@@ -164,10 +181,10 @@ function endQuiz() {
   answerListEl.setAttribute("style", "display:none;");
   answerListEl.dataset.state = "hidden";
   mainEl.appendChild(endMsg);
-  mainEl.appendChild(inputLabel);
-  mainEl.appendChild(initialInput);
-  mainEl.appendChild(submitBtn);
+  mainEl.appendChild(formEl);
   initialInput.focus();
+  initialInput.addEventListener("submit", saveScore);
+  initialInput.addEventListener("submit", viewHighScores);
 }
 
 // Loops through Questions and Answers
