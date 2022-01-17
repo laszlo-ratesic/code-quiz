@@ -1,79 +1,136 @@
 // Global Counter
 let i = 1;
 
-// Score counter
-const timerEl = document.getElementById("timer");
+// Game Tracker
+let gamePlayed = false;
+
+// ************************START OF LEADERBOARD ELEMENTS********************************
+// View High Scores navigation element
+const navEl = document.getElementById("nav-el");
+
+// Return to landing page
+function goHome() {
+  if (navEl.innerText === "Home") {
+    window.location.reload();
+  }
+}
+
+// Placeholder values for High Score table
+const defaultArr = [
+  ["KRK", 690],
+  ["KRC", 420],
+  ["RRC", 336],
+  ["MEC", 180],
+  ["FTW", 117],
+  ["LOL", 101],
+];
+
+// Retrieve scores from localStorage or use placeholder values
+const highScores = JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
+
+// Displays High Score table
+function viewHighScores(event) {
+  navEl.innerText = "Home";
+  mainEl.textContent = "";
+  questionEl.style = "display:flex;";
+  questionEl.textContent = "High Scores";
+  if (score > highScores[5][1]) {
+    questionEl.textContent = "NEW HIGH SCORE!";
+  }
+  mainEl.appendChild(questionEl);
+
+  const tbl = document.createElement("table");
+  tbl.style.border = "1px solid #edf4ed";
+  tbl.style.borderRadius = "15px";
+  tbl.style.width = "20rem";
+  tbl.style.fontSize = "1.5em";
+
+  for (let i = 0; i < 6; i++) {
+    const tr = tbl.insertRow();
+    tr.style.height = "3rem";
+    for (let j = 0; j < 2; j++) {
+      const td = tr.insertCell();
+      const playerInit = document.createTextNode(highScores[i][j]);
+      td.appendChild(playerInit);
+      td.style.borderBottom = "3px solid #37312f";
+      td.style.borderRight = "3px solid #37312f";
+      td.style.borderRadius = "15px";
+    }
+  }
+  mainEl.appendChild(tbl);
+  if (gamePlayed) {
+    startBtn.innerText = "Try again?";
+    mainEl.appendChild(startBtn);
+    startBtn.removeEventListener("click", startQuiz);
+    startBtn.removeEventListener("click", countdown);
+    startBtn.addEventListener("click", goHome);
+  }
+}
+
+// Navigation element event listeners
+navEl.addEventListener("click", goHome);
+navEl.addEventListener("click", viewHighScores);
+// ************************END OF LEADERBOARD ELEMENTS********************************
+
+// ************************START OF START-QUIZ ELEMENTS********************************
+// Main Page Content
+const mainEl = document.getElementById("page-content");
 
 // Start Quiz button
 const startBtn = document.getElementById("start-btn");
 
-// Main Page Content
-const mainEl = document.getElementById("page-content");
+// Clears page and displays Question 0
+function startQuiz() {
+  // debugger;
+  if (answerListEl.dataset.state === "visible") {
+    answerListEl.dataset.state = "hidden";
+    questionEl.dataset.state = "hidden";
+  }
+  if (answerListEl.dataset.state === "hidden") {
+    questionEl.setAttribute(
+      "style",
+      "display:flex; margin: 1.8rem 0; font-size:1.8rem; line-height:1.4;"
+    );
+    questionEl.dataset.state = "visible";
+    answerListEl.setAttribute("style", "display:flex;");
+    answerListEl.dataset.state = "visible";
+  }
+  mainEl.appendChild(questionEl);
+  mainEl.appendChild(answerListEl);
+}
 
-// Question
+// Start Quiz event listener
+startBtn.addEventListener("click", countdown);
+startBtn.addEventListener("click", startQuiz);
+// ************************END OF START-QUIZ ELEMENTS********************************
+
+// ************************START OF SCORE-TIMER ELEMENTS********************************
+// Score counter
+const timerEl = document.getElementById("timer");
+let score = 0;
+
+// Score Countdown function
+function countdown() {
+  mainEl.innerHTML = "";
+  score = 6000;
+  timerEl.innerHTML = score;
+  var timeInterval = setInterval(function () {
+    timerEl.innerHTML = score;
+    if (score <= 0 || i === questionsArr.length + 1) {
+      clearInterval(timeInterval);
+      timerEl.innerHTML = score;
+      endMsg.innerHTML = `Your final score is ${score}`;
+      endQuiz();
+    }
+    --score;
+  }, 10);
+}
+// ************************END OF SCORE-TIMER ELEMENTS********************************
+
+
+// ************************START OF QUESTION ELEMENTS********************************
+// Question Element
 const questionEl = document.querySelector(".question");
-
-// Answer choice elements
-const answerListEl = document.querySelector(".answer-wrapper");
-const answersEl = document.querySelectorAll(".answer");
-const answerEl = document.querySelector(".answer");
-const ansElA = document.getElementById("a");
-const ansElB = document.getElementById("b");
-const ansElC = document.getElementById("c");
-const ansElD = document.getElementById("d");
-
-// Final Score
-let finalScore = "A NUMBER";
-
-// Game Over Message
-const endMsg = document.createElement("p");
-endMsg.setAttribute("style", "color:#edf4ed");
-
-const formEl = document.createElement("form");
-formEl.style.height = "8rem";
-formEl.style.display = "flex";
-formEl.style.flexDirection = "column";
-formEl.style.justifyContent = "space-between";
-
-const labelDiv = document.createElement("div");
-const inputDiv = document.createElement("div");
-const submitDiv = document.createElement("div");
-
-// "Enter your Initials" Input Label
-const inputLabel = document.createElement("label");
-inputLabel.textContent = "Please enter your initials: ";
-inputLabel.setAttribute("for", "initial-input");
-inputLabel.setAttribute("style", "font-size:1.4rem;");
-labelDiv.appendChild(inputLabel);
-formEl.appendChild(labelDiv);
-
-// Input form for entering initials
-const initialInput = document.createElement("input");
-initialInput.setAttribute("type", "text");
-initialInput.setAttribute("id", "initial-input");
-initialInput.setAttribute("name", "initial-input");
-initialInput.setAttribute("required", "required");
-initialInput.setAttribute("minlength", "1");
-initialInput.setAttribute("maxlength", "3");
-initialInput.setAttribute("size", "1");
-initialInput.setAttribute(
-  "style",
-  "caret-color: transparent; text-transform: uppercase; text-align:center; font-size:2rem; color: #f6ab13; outline:none; background-color: #11151c; border: none; border-bottom:2px solid #6da34d;"
-);
-inputDiv.appendChild(initialInput);
-formEl.appendChild(inputDiv);
-
-// Submit High Score button
-const submitBtn = document.createElement("input");
-submitBtn.id = "submit-btn";
-submitBtn.type = "submit";
-submitBtn.value = "Submit";
-submitBtn.setAttribute(
-  "style",
-  "user-select: false; font-size: 1.3rem; appearance:none; border:none; border-radius:10px; padding:10px 20px; color:#edf4ed; background: #37312f; cursor:pointer;"
-);
-submitDiv.appendChild(submitBtn);
-formEl.appendChild(submitDiv);
 
 // Questions Array
 const questionsArr = [
@@ -117,78 +174,6 @@ quizMap.set(q9, "b");
 // An iterator to loop through questions
 const mapIter = quizMap[Symbol.iterator]();
 
-// Array of players
-let playersArr = [
-  ["KRC", 92394],
-  ["KRK", 12159],
-  ["RRC", 52720],
-  ["MEC", 13022],
-  ["LOL", 13373],
-  ["OMG", 80085],
-];
-
-// Answer Choices Array
-const answersArr = [
-  ["A. Array", "B. String", "C. Boolean", "D. Alert"],
-  ["A. last()", "B. put()", "C. push()", "D. pop()"],
-  ["A. toSource()", "B. valueOf()", "C. toString()", "D. toNumber()"],
-  ["A. concat()", "B. match()", "C. search()", "D. replace()"],
-  ["A. push()", "B. join()", "C. pop()", "D. map()"],
-  ["A. <head>", "B. <script>", "C. <link>", "D. <footer>"],
-  [
-    "A. Colon (:)",
-    "B. Double-equal (==)",
-    "C. Question mark (?)",
-    "D. Equal sign (=)",
-  ],
-  ["A. bigInt", "B. truthy", "C. falsy", "D. float"],
-  [
-    "A. A function on an object",
-    "B. An array",
-    "C. An object's key number",
-    "D. A function argument",
-  ],
-  [
-    "A. Surrounding and inner",
-    "B. Global and local",
-    "C. Abroad and local",
-    "D. Outside and inside",
-  ],
-];
-
-// High Score Countdown function
-function countdown() {
-  mainEl.innerHTML = "";
-  score = 6000;
-  timerEl.innerHTML = score;
-  var timeInterval = setInterval(function () {
-    timerEl.innerHTML = score;
-    if (score <= 0 || i === questionsArr.length + 1) {
-      clearInterval(timeInterval);
-      timerEl.innerHTML = score;
-      finalScore = score;
-      endMsg.innerHTML = `Your final score is ${finalScore}`;
-      endQuiz();
-    }
-    --score;
-  }, 10);
-}
-
-let gamePlayed = false;
-
-// Displays endgame message
-function endQuiz() {
-  gamePlayed = true;
-  questionEl.textContent = "All Done!";
-  answerListEl.setAttribute("style", "display:none;");
-  answerListEl.dataset.state = "hidden";
-  mainEl.appendChild(endMsg);
-  mainEl.appendChild(formEl);
-  initialInput.focus();
-  initialInput.addEventListener("submit", saveScore);
-  initialInput.addEventListener("submit", viewHighScores);
-}
-
 // Loops through Questions and Answers
 var answerHandler = function (event) {
   console.log(i);
@@ -228,6 +213,45 @@ var answerHandler = function (event) {
     score -= 1000;
   }
 };
+// ************************END OF QUESTION ELEMENTS********************************
+
+// ************************START OF ANSWER ELEMENTS********************************
+// Answer choice elements
+const answerListEl = document.querySelector(".answer-wrapper");
+const answersEl = document.querySelectorAll(".answer");
+const ansElA = document.getElementById("a");
+const ansElB = document.getElementById("b");
+const ansElC = document.getElementById("c");
+const ansElD = document.getElementById("d");
+
+// Answer Choices Array
+const answersArr = [
+  ["A. Array", "B. String", "C. Boolean", "D. Alert"],
+  ["A. last()", "B. put()", "C. push()", "D. pop()"],
+  ["A. toSource()", "B. valueOf()", "C. toString()", "D. toNumber()"],
+  ["A. concat()", "B. match()", "C. search()", "D. replace()"],
+  ["A. push()", "B. join()", "C. pop()", "D. map()"],
+  ["A. <head>", "B. <script>", "C. <link>", "D. <footer>"],
+  [
+    "A. Colon (:)",
+    "B. Double-equal (==)",
+    "C. Question mark (?)",
+    "D. Equal sign (=)",
+  ],
+  ["A. bigInt", "B. truthy", "C. falsy", "D. float"],
+  [
+    "A. A function on an object",
+    "B. An array",
+    "C. An object's key number",
+    "D. A function argument",
+  ],
+  [
+    "A. Surrounding and inner",
+    "B. Global and local",
+    "C. Abroad and local",
+    "D. Outside and inside",
+  ],
+];
 
 // Answer Choice event listeners
 answersEl.forEach(function (item) {
@@ -244,67 +268,84 @@ answersEl.forEach(function (item) {
     event.target.style.boxShadow = "none";
   });
 });
+// ************************END OF ANSWER ELEMENTS********************************
 
-const navEl = document.getElementById("nav-el");
-navEl.addEventListener("click", goHome);
-navEl.addEventListener("click", viewHighScores);
+// ************************START OF ENDGAME ELEMENTS********************************
+// Endgame Message
+const endMsg = document.createElement("p");
+endMsg.setAttribute("style", "color:#edf4ed");
 
-function goHome() {
-  if (navEl.innerText === "Home") {
-    window.location.reload();
+// Displays endgame message
+function endQuiz() {
+  gamePlayed = true;
+  questionEl.textContent = "All Done!";
+  answerListEl.setAttribute("style", "display:none;");
+  answerListEl.dataset.state = "hidden";
+  mainEl.appendChild(endMsg);
+  mainEl.appendChild(formEl);
+  initialInput.focus();
+  initialInput.addEventListener("submit", saveScore);
+  initialInput.addEventListener("submit", viewHighScores);
+}
+
+// Submit initials form
+const formEl = document.createElement("form");
+formEl.style.height = "8rem";
+formEl.style.display = "flex";
+formEl.style.flexDirection = "column";
+formEl.style.justifyContent = "space-between";
+
+// Form divs
+const labelDiv = document.createElement("div");
+const inputDiv = document.createElement("div");
+const submitDiv = document.createElement("div");
+
+// "Enter your Initials" Input Label
+const inputLabel = document.createElement("label");
+inputLabel.textContent = "Please enter your initials: ";
+inputLabel.setAttribute("for", "initial-input");
+inputLabel.setAttribute("style", "font-size:1.4rem;");
+labelDiv.appendChild(inputLabel);
+formEl.appendChild(labelDiv);
+
+// Input form for entering initials
+const initialInput = document.createElement("input");
+initialInput.setAttribute("type", "text");
+initialInput.setAttribute("id", "initial-input");
+initialInput.setAttribute("name", "initial-input");
+initialInput.setAttribute("required", "required");
+initialInput.setAttribute("minlength", "1");
+initialInput.setAttribute("maxlength", "3");
+initialInput.setAttribute("size", "1");
+initialInput.setAttribute(
+  "style",
+  "caret-color: transparent; text-transform: uppercase; text-align:center; font-size:2rem; color: #f6ab13; outline:none; background-color: #11151c; border: none; border-bottom:2px solid #6da34d;"
+);
+inputDiv.appendChild(initialInput);
+formEl.appendChild(inputDiv);
+
+// Submit High Score button
+const submitBtn = document.createElement("input");
+submitBtn.id = "submit-btn";
+submitBtn.type = "submit";
+submitBtn.value = "Submit";
+submitBtn.setAttribute(
+  "style",
+  "user-select: false; font-size: 1.3rem; appearance:none; border:none; border-radius:10px; padding:10px 20px; color:#edf4ed; background: #37312f; cursor:pointer;"
+);
+submitDiv.appendChild(submitBtn);
+formEl.appendChild(submitDiv);
+
+// Checks if score made the leaderboard
+function submitScore() {
+  const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
+  score;
+  if (score > lowestScore) {
+    saveScore(score, highScores);
   }
 }
 
-const defaultArr = [
-  ["KRK", 690],
-  ["KRC", 420],
-  ["RRC", 336],
-  ["MEC", 180],
-  ["FTW", 117],
-  ["LOL", 101],
-];
-const highScores =
-  JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
-
-function viewHighScores(event) {
-  navEl.innerText = "Home";
-  let score = finalScore;
-  mainEl.textContent = "";
-  questionEl.style = "display:flex;";
-  questionEl.textContent = "High Scores";
-  if (score > highScores[5][1]) {
-    questionEl.textContent = "NEW HIGH SCORE!";
-  }
-  mainEl.appendChild(questionEl);
-
-  const tbl = document.createElement("table");
-  tbl.style.border = "1px solid #edf4ed";
-  tbl.style.borderRadius = "15px";
-  tbl.style.width = "20rem";
-  tbl.style.fontSize = "1.5em";
-
-  for (let i = 0; i < 6; i++) {
-    const tr = tbl.insertRow();
-    tr.style.height = "3rem";
-    for (let j = 0; j < 2; j++) {
-      const td = tr.insertCell();
-      const playerInit = document.createTextNode(highScores[i][j]);
-      td.appendChild(playerInit);
-      td.style.borderBottom = "3px solid #37312f";
-      td.style.borderRight = "3px solid #37312f";
-      td.style.borderRadius = "15px";
-    }
-  }
-  mainEl.appendChild(tbl);
-  if (gamePlayed) {
-    startBtn.innerText = "Try again?";
-    mainEl.appendChild(startBtn);
-    startBtn.removeEventListener("click", startQuiz);
-    startBtn.removeEventListener("click", countdown);
-    startBtn.addEventListener("click", goHome);
-  }
-}
-
+// Adds player score and initials to localStorage
 function saveScore(score, highScores) {
   let newInitials = initialInput.value.toUpperCase();
   let newHighScore = [newInitials, score + 1];
@@ -314,14 +355,6 @@ function saveScore(score, highScores) {
   console.log(highScores);
   localStorage.setItem("high scores", JSON.stringify(highScores));
   i = 1;
-}
-
-function submitScore() {
-  const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
-  score;
-  if (score > lowestScore) {
-    saveScore(score, highScores);
-  }
 }
 
 // Submit Button event listeners
@@ -352,27 +385,4 @@ submitBtn.addEventListener("touchend", function (event) {
 });
 submitBtn.addEventListener("click", submitScore);
 submitBtn.addEventListener("click", viewHighScores);
-
-// Clears page and displays Question 0
-function startQuiz() {
-  // debugger;
-  if (answerListEl.dataset.state === "visible") {
-    answerListEl.dataset.state = "hidden";
-    questionEl.dataset.state = "hidden";
-  }
-  if (answerListEl.dataset.state === "hidden") {
-    questionEl.setAttribute(
-      "style",
-      "display:flex; margin: 1.8rem 0; font-size:1.8rem; line-height:1.4;"
-    );
-    questionEl.dataset.state = "visible";
-    answerListEl.setAttribute("style", "display:flex;");
-    answerListEl.dataset.state = "visible";
-  }
-  mainEl.appendChild(questionEl);
-  mainEl.appendChild(answerListEl);
-}
-
-// Start Quiz event listener
-startBtn.addEventListener("click", countdown);
-startBtn.addEventListener("click", startQuiz);
+// ************************END OF ENDGAME ELEMENTS********************************
