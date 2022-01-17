@@ -26,7 +26,8 @@ const defaultArr = [
 ];
 
 // Retrieve scores from localStorage or use placeholder values
-const highScores = JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
+const highScores =
+  JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
 
 // Displays High Score table
 function viewHighScores(event) {
@@ -127,7 +128,6 @@ function countdown() {
 }
 // ************************END OF SCORE-TIMER ELEMENTS********************************
 
-
 // ************************START OF QUESTION ELEMENTS********************************
 // Question Element
 const questionEl = document.querySelector(".question");
@@ -146,30 +146,18 @@ const questionsArr = [
   "What are the two types of scope JavaScript uses?",
 ];
 
-// Shorthand references to individual questions
-const q0 = questionsArr[0];
-const q1 = questionsArr[1];
-const q2 = questionsArr[2];
-const q3 = questionsArr[3];
-const q4 = questionsArr[4];
-const q5 = questionsArr[5];
-const q6 = questionsArr[6];
-const q7 = questionsArr[7];
-const q8 = questionsArr[8];
-const q9 = questionsArr[9];
-
 // Map each question to its correct answer
 const quizMap = new Map();
-quizMap.set(q0, "d");
-quizMap.set(q1, "c");
-quizMap.set(q2, "b");
-quizMap.set(q3, "b");
-quizMap.set(q4, "d");
-quizMap.set(q5, "b");
-quizMap.set(q6, "d");
-quizMap.set(q7, "a");
-quizMap.set(q8, "a");
-quizMap.set(q9, "b");
+quizMap.set(questionsArr[0], "d");
+quizMap.set(questionsArr[1], "c");
+quizMap.set(questionsArr[2], "b");
+quizMap.set(questionsArr[3], "b");
+quizMap.set(questionsArr[4], "d");
+quizMap.set(questionsArr[5], "b");
+quizMap.set(questionsArr[6], "d");
+quizMap.set(questionsArr[7], "a");
+quizMap.set(questionsArr[8], "a");
+quizMap.set(questionsArr[9], "b");
 
 // An iterator to loop through questions
 const mapIter = quizMap[Symbol.iterator]();
@@ -284,8 +272,7 @@ function endQuiz() {
   mainEl.appendChild(endMsg);
   mainEl.appendChild(formEl);
   initialInput.focus();
-  initialInput.addEventListener("submit", saveScore);
-  initialInput.addEventListener("submit", viewHighScores);
+  initialInput.addEventListener("submit", submitScore);
 }
 
 // Submit initials form
@@ -338,10 +325,17 @@ formEl.appendChild(submitDiv);
 
 // Checks if score made the leaderboard
 function submitScore() {
-  const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
-  score;
-  if (score > lowestScore) {
-    saveScore(score, highScores);
+  if (!initialInput.value) {
+    window.alert(
+      "🧙‍♂️ Whoa, whoa, whoa! Not so fast! Please enter your initials!"
+    );
+    debugger;
+    endQuiz();
+  } else {
+    const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
+    if (score > lowestScore) {
+      saveScore(score, highScores);
+    }
   }
 }
 
@@ -355,6 +349,7 @@ function saveScore(score, highScores) {
   console.log(highScores);
   localStorage.setItem("high scores", JSON.stringify(highScores));
   i = 1;
+  viewHighScores();
 }
 
 // Submit Button event listeners
@@ -384,5 +379,4 @@ submitBtn.addEventListener("touchend", function (event) {
   event.target.style.transform = "translateY(-2px)";
 });
 submitBtn.addEventListener("click", submitScore);
-submitBtn.addEventListener("click", viewHighScores);
 // ************************END OF ENDGAME ELEMENTS********************************
