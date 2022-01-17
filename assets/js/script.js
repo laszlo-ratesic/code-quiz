@@ -375,7 +375,7 @@ function endQuiz() {
 
 // Create and style submit initials form
 const formEl = document.createElement("form");
-formEl.style.height = "8rem";
+formEl.style.height = "12rem";
 formEl.style.display = "flex";
 formEl.style.flexDirection = "column";
 formEl.style.justifyContent = "space-between";
