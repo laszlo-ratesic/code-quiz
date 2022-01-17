@@ -175,6 +175,8 @@ function countdown() {
   }, 10);
 }
 
+let ending = false;
+
 // Displays endgame message
 function endQuiz() {
   questionEl.textContent = "All Done!";
@@ -183,6 +185,7 @@ function endQuiz() {
   mainEl.appendChild(endMsg);
   mainEl.appendChild(formEl);
   initialInput.focus();
+  ending = true;
   initialInput.addEventListener("submit", saveScore);
   initialInput.addEventListener("submit", viewHighScores);
 }
@@ -263,6 +266,7 @@ const defaultArr = [
 const highScores =
   JSON.parse(localStorage.getItem("high scores")) ?? defaultArr;
 
+
 function viewHighScores(event) {
   navEl.innerText = "Home";
   let score = finalScore;
@@ -294,11 +298,15 @@ function viewHighScores(event) {
     }
   }
   mainEl.appendChild(tbl);
+  if (ending) {
+    startBtn.innerText = "Try again?"
+    mainEl.appendChild(startBtn);
+  }
 }
 
 function saveScore(score, highScores) {
   let newInitials = initialInput.value.toUpperCase();
-  let newHighScore = [newInitials, score];
+  let newHighScore = [newInitials, score + 1];
   highScores.push(newHighScore);
   highScores.sort((a, b) => b[1] - a[1]);
   highScores.splice(highScores.length);
