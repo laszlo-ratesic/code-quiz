@@ -1,4 +1,4 @@
-# 🧙‍♂️ Quizard's Coding Challenge
+# Quizard's Coding Challenge 🧙‍♂️
 
 Will you enter the Quizard's coding gauntlet?
 
