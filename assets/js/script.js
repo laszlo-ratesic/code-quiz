@@ -21,8 +21,7 @@ const defaultArr = [
   ["KRC", 420],
   ["RRC", 336],
   ["MEC", 180],
-  ["FTW", 117],
-  ["LOL", 101],
+  ["FTW", 117]
 ];
 
 // Retrieve scores from localStorage or use placeholder values
@@ -32,23 +31,39 @@ const highScores =
 
 // Displays High Score table
 function viewHighScores() {
+  // Changes 'View High Scores' button to 'Home'
   navEl.style.display = "inline";
   navEl.innerText = "Home";
+
+  // Removes page content
   mainEl.textContent = "";
+
+  //🎉 Surprise! Reveals question element hidden in HTML
   questionEl.style = "display:flex;";
+  // Use it as leaderboard heading
   questionEl.textContent = "High Scores";
-  if (score > highScores[5][1]) {
+
+  // If score is higher than the lowest high score...
+  if (score > highScores[4][1]) {
+    // ...display an exciting message 🎊
     questionEl.textContent = "NEW HIGH SCORE!";
   }
+
+  // Render it inside the recently emptied main page
   mainEl.appendChild(questionEl);
 
+  //📋 Actual High score table creation
   const tbl = document.createElement("table");
+
+  // Outer table styling
   tbl.style.border = "1px solid #edf4ed";
   tbl.style.borderRadius = "15px";
   tbl.style.width = "20rem";
   tbl.style.fontSize = "1.5em";
 
-  for (let i = 0; i < 6; i++) {
+  //🤯 Simple "for loop-ception"
+  //
+  for (let i = 0; i < 5; i++) {
     const tr = tbl.insertRow();
     tr.style.height = "3rem";
     for (let j = 0; j < 2; j++) {
