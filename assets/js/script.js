@@ -102,24 +102,14 @@ quizMap.set(q9, "b");
 const mapIter = quizMap[Symbol.iterator]();
 
 // Array of players
-const playersArr = ["KRC", "KRK", "RRC", "MEC", "LOL", "OMG"];
-
-const p0 = playersArr[0];
-const p1 = playersArr[1];
-const p2 = playersArr[2];
-const p3 = playersArr[3];
-const p4 = playersArr[4];
-const p5 = playersArr[5];
-
-const leaderBoard = new Map();
-leaderBoard.set(p0, "92394");
-leaderBoard.set(p1, "12159");
-leaderBoard.set(p2, "52720");
-leaderBoard.set(p3, "13022");
-leaderBoard.set(p4, "13373");
-leaderBoard.set(p5, "80085");
-
-const leadIter = leaderBoard.values();
+let playersArr = [
+  ["KRC", 92394],
+  ["KRK", 12159],
+  ["RRC", 52720],
+  ["MEC", 13022],
+  ["LOL", 13373],
+  ["OMG", 80085],
+];
 
 // Answer Choices Array
 const answersArr = [
@@ -244,18 +234,19 @@ function viewHighScores(event) {
   tbl.style.width = "20rem";
   tbl.style.fontSize = "1.5em";
 
+  const highScores = JSON.parse(localStorage.getItem("high scores")) ?? [];
+  const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
+  if (score > lowestScore) {
+    questionEl.textContent = "New High Score!";
+  }
+  
   for (let i = 0; i < 6; i++) {
     const tr = tbl.insertRow();
     tr.style.height = "3rem";
     for (let j = 0; j < 2; j++) {
       const td = tr.insertCell();
-      let playerInit = document.createTextNode(playersArr[i]);
-      if (j === 0) {
-        td.appendChild(playerInit);
-      } else {
-        let playerScore = document.createTextNode(leadIter.next().value);
-        td.appendChild(playerScore);
-      }
+      let playerInit = document.createTextNode(highScores[i][j]);
+      td.appendChild(playerInit);
       td.style.border = "1px solid white";
     }
   }
@@ -265,10 +256,27 @@ function viewHighScores(event) {
   }
 }
 
-function submitScore() {
+const data = [["BBB", 7223], ["DDD", 8914], ["CCC", 7255], ["AAA", 7255], ["HHH", 5243], ["III", 5243]];
+const sortedData = data.sort((a, b) => b[1] - a[1]);
+console.log(sortedData);
+
+function saveScore(score, highScores) {
   let newInitials = initialInput.value.toUpperCase();
-  localStorage.setItem("scores", newInitials);
-  console.log(localStorage.getItem("scores"));
+  let newHighScore = [newInitials, score];
+  highScores.push(newHighScore);
+  highScores.sort((a, b) => b[1] - a[1]);
+  highScores.splice(highScores.length);
+  console.log(highScores);
+  localStorage.setItem("high scores", JSON.stringify(highScores));
+}
+
+function submitScore() {
+  const highScores = JSON.parse(localStorage.getItem("high scores")) ?? [];
+  const lowestScore = highScores[highScores.length - 1]?.score ?? 0;
+  score;
+  if (score > lowestScore) {
+    saveScore(score, highScores);
+  }
 }
 
 // Submit Button event listeners
