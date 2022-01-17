@@ -8,6 +8,43 @@ Prove you have what it takes to climb to the top of the leaderboard among the fe
 
 ...your destiny awaits you.
 
+## 📚 Table of Contents
+- [🧙‍♂️ Quizard's Coding Challenge](#️-quizards-coding-challenge)
+  - [📚 Table of Contents](#-table-of-contents)
+  - [🧾 Features](#-features)
+  - [💯 Additional Features](#-additional-features)
+  - [📖 Developer Journey](#-developer-journey)
+  - [🛠️ Installation](#️-installation)
+  - [👨‍🏫 Usage](#-usage)
+  - [🥂 Credits](#-credits)
+  - [📇 License](#-license)
+  - [👋 How to Contribute](#-how-to-contribute)
+
+## 🧾 Features
+- A timed quiz on JavaScript fundamentals
+- Stores high scores
+- Upon starting, the user is presented with a question
+- Additional questions are presented as user answers them
+- Incorrect answers subtract time from the clock
+- Quiz ends when all questions are answered or timer reaches 0
+- User can submit initials and save their score after quiz
+
+## 💯 Additional Features
+- Placeholder values in high score table on first visit
+- View High Scores button disappears during game
+- View High Scores button transforms to Home button at High Score screen
+- High scores must be between 1 and 3 characters and will always render as uppercase letters
+- Input is forced
+- Correct answers add time to the clock
+- Incorrect answers turn the score counter red for a brief moment
+- Correct answers turn the score counter green for a brief moment
+- Styling for both desktop and mobile users
+- Input automatically focused after quiz end
+- User highlighting prevented for better experience
+- 'Try again' option at quiz end provides incentive for user to stay on site
+- Negative score values converted to 0
+- localStorage only stores top scores to prevent bloat
+
 ## 📖 Developer Journey
 
 📓 This repo contains the MVP for a themed coding quiz challenge requested by an anonymous student at an anonymous coding boot camp and was created completely from scratch. Our client here was interested in taking a timed quiz on JavaScript fundamentals that stores high scores. They specifically wanted to be able to guage their progress compared to their peers, a not unreasonable goal when navigating with a group through one of the world's most popular, yet difficult to learn, coding languages: JavaScript.
@@ -47,43 +84,6 @@ The viewHighScores function simply retrieves either the parsed version of the st
 <sub><a name="footnote6">6</a>: The functionality for this is quite elegant and I surely cannot take credit for how I've manhandled it in my own neanderthal way to work for this project.</sub>
 
 🔥 TL;DR It's a really badass coding quiz. 🚒
-
-## 📚 Table of Contents
-- [🧙‍♂️ Quizard's Coding Challenge](#️-quizards-coding-challenge)
-  - [📖 Developer Journey](#-developer-journey)
-  - [📚 Table of Contents](#-table-of-contents)
-  - [🧾 Features](#-features)
-  - [💯 Additional Features](#-additional-features)
-  - [🛠️ Installation](#️-installation)
-  - [👨‍🏫 Usage](#-usage)
-  - [🥂 Credits](#-credits)
-  - [📇 License](#-license)
-  - [👋 How to Contribute](#-how-to-contribute)
-
-## 🧾 Features
-- A timed quiz on JavaScript fundamentals
-- Stores high scores
-- Upon starting, the user is presented with a question
-- Additional questions are presented as user answers them
-- Incorrect answers subtract time from the clock
-- Quiz ends when all questions are answered or timer reaches 0
-- User can submit initials and save their score after quiz
-
-## 💯 Additional Features
-- Placeholder values in high score table on first visit
-- View High Scores button disappears during game
-- View High Scores button transforms to Home button at High Score screen
-- High scores must be between 1 and 3 characters and will always render as uppercase letters
-- Input is forced
-- Correct answers add time to the clock
-- Incorrect answers turn the score counter red for a brief moment
-- Correct answers turn the score counter green for a brief moment
-- Styling for both desktop and mobile users
-- Input automatically focused after quiz end
-- User highlighting prevented for better experience
-- 'Try again' option at quiz end provides incentive for user to stay on site
-- Negative score values converted to 0
-- localStorage only stores top scores to prevent bloat
 
 ## 🛠️ Installation
 Locate the dropdown menu labeled 'Code' to the left of the About section in the main page of this repository. From there, select your preferred cloning method from HTTPS, SSH, or the GitHub CLI. For this demonstration, we will be using the SSH method. Copy the link and head to your terminal. From the command line you should enter:
